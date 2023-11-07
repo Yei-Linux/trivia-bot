@@ -1,0 +1,30 @@
+{
+    "name": "trivia-bot",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+        "pre-copy": "cd .. && npm run  copy.lib trivia-bot",
+        "start": "node app.js"
+    },
+    "keywords": [],
+    "dependencies": {
+        "@bot-whatsapp/bot": "latest",
+        "@bot-whatsapp/cli": "latest",
+        "@bot-whatsapp/database": "latest",
+        "@bot-whatsapp/provider": "latest",
+        "axios": "^1.2.1",
+        "body-parser": "^1.20.1",
+        "mongodb": "^4.17.1",
+        "node-cache": "^5.1.2",
+        "node-fetch": "^2.7.0",
+        "polka": "^0.5.2",
+        "winston": "^3.11.0"
+    },
+    "devDependencies": {
+        "eslint": "^8.52.0",
+        "eslint-plugin-bot-whatsapp": "latest"
+    },
+    "author": "",
+    "license": "ISC"
+}
