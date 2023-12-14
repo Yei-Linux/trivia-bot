@@ -1,40 +1,50 @@
-### Anna Bot
+### Trivia Bot
 **Used to improve your knowledge** 
 
 <p align="center">
   <img width="300" src="https://cdn-icons-png.flaticon.com/512/3616/3616898.png">
 </p>
 
-## Setup docker
+# Caprover Link
+
+- Prod: https://trivia-bot.something.annaback.lat/webhook
+
+## Setup Meta Account
+
+- Go to https://developers.facebook.com/apps
+- Click on create app
+- Click on Other
+- Click on Business
+- Fill name, email and create app
+- Go to whatsapp and Configure
+
+## Install ngrok
+
+```console
+brew install ngrok/ngrok/ngrok
+cat Library/Application\ Support/ngrok/ngrok.yml
+ngrok config add-authtoken {{token}}
 ```
+
+## Setup docker
+
+```console
 docker build . -t botwhatsapp:latest
 docker run -d --add-host=host.docker.internal:host-gateway --name bot_last -p 3000:3000 botwhatsapp:latest
 ```
 
-## Setup mongosh
-```
-brew tap mongodb/brew
-brew install mongodb-community@7.0
-brew services start mongodb-community@7.0
-brew services list
-/opt/homebrew/etc/mongod.conf --> add replica set config
-rs.initiate({_id: 'rs0', members: [{_id: 0, host: 'localhost:27017'}]})
-
-to delete lock file -> sudo rm -rf /tmp/mongodb-27017.sock
-set in bindIp your own ip(or 0.0.0.0) to bridge gateway
-directConnection=true :To force operations on the host designated in the connection URI
-```
-
 ## Instance connection
-```
-chmod 400 annabotmeta.pem
-ssh -i "annabotmeta.pem" ubuntu@ec2-{{ip}}.compute-1.amazonaws.com
+
+```console
+chmod 400 bot-pem.pem
+ssh -i "bot-pem.pem" ubuntu@ec2-54-91-121-112.compute-1.amazonaws.com
 sudo apt update && sudo apt upgrade -y
 sudo reboot now
 ```
 
 ## Docker EC2 Instance setup
-```
+
+```console
 sudo apt-get update
 sudo apt-get install ca-certificates curl gnupg
 sudo install -m 0755 -d /etc/apt/keyrings
@@ -52,7 +62,8 @@ sudo docker run hello-world
 ```
 
 ## Caprover Installation
-```
+
+```console
 sudo ufw allow 80,443,3000,996,7946,4789,2377/tcp
 sudo ufw allow 7946,4789,2377/udp
 sudo docker run -p 80:80 -p 443:443 -p 3000:3000 -e ACCEPTED_TERMS=true -v /var/run/docker.sock:/var/run/docker.sock -v /captain:/captain caprover/caprover
@@ -65,3 +76,23 @@ nvm install node
 npm install -g caprover
 caprover serversetup
 ```
+
+## Setup mongosh
+
+```console
+brew tap mongodb/brew
+brew install mongodb-community@7.0
+brew services start mongodb-community@7.0
+brew services list
+/opt/homebrew/etc/mongod.conf --> add replica set config
+rs.initiate({_id: 'rs0', members: [{_id: 0, host: 'localhost:27017'}]})
+
+to delete lock file -> sudo rm -rf /tmp/mongodb-27017.sock
+set in bindIp your own ip(or 0.0.0.0) to bridge gateway
+directConnection=true :To force operations on the host designated in the connection URI
+```
+
+# Gist
+
+- Url: https://gist.github.com/Yei-Linux/3ea68d3398ea42b2d5f9670fe4ca3fbf
+}

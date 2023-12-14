@@ -34,6 +34,7 @@ const welcomeIsRegisteredUserAction = async ({ flowDynamic, user }) => {
     );
 
     await flowDynamic(welcomeMessage, { delay: 1000 });
+    //await flowDynamic('This is my flowDynamic');
     return;
   } catch (error) {
     logger.error(error.message);

@@ -2,6 +2,7 @@ const { addKeyword } = require('@bot-whatsapp/bot');
 
 const { TRIVIA_CONVERSATION_BOT } = require('../../constants');
 const { emailAnswer } = require('./email.answer');
+const { menuStepFlow } = require('../menu-steps');
 
 const { emailStep } = TRIVIA_CONVERSATION_BOT;
 const { keywords, questions } = emailStep;

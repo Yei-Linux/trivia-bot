@@ -17,34 +17,38 @@ const { menuStepFlow } = require('../menu-steps');
 const { welcomeStep } = TRIVIA_CONVERSATION_BOT;
 const { keywords } = welcomeStep;
 
-const welcomeStepFlow = addKeyword(keywords)
-  .addAction(async (ctx, { endFlow }) => {
-    const phone = ctx.from;
-    const isInactive = await isInactiveForGettingResponse({ phone, endFlow });
-    if (isInactive) return;
-    return;
-  })
-  .addAnswer(
-    'Hi!',
-    {
-      capture: false,
-    },
-    async (ctx, { gotoFlow, flowDynamic }) => {
+const welcomeStepFlow =
+  //addKeyword("Hola")
+  addKeyword(keywords)
+    .addAction(async (ctx, { endFlow }) => {
       const phone = ctx.from;
-      const user = await findUserByPhone(phone);
-
-      await delay(2000);
-      await welcomeIsRegisteredUserAction({
-        flowDynamic,
-        user,
-      });
-
-      await delay(2000);
-      await whichFlowAfterWelcome({ gotoFlow, phone, user });
+      const isInactive = await isInactiveForGettingResponse({ phone, endFlow });
+      if (isInactive) return;
       return;
-    },
-    [menuStepFlow, fullNameStepFlow, emailStepFlow]
-  );
+    })
+    .addAnswer(
+      'Hi!',
+      {
+        capture: false,
+      },
+      async (ctx, { gotoFlow, flowDynamic }) => {
+        const phone = ctx.from;
+        const user = await findUserByPhone(phone);
+
+        await delay(2000);
+        await welcomeIsRegisteredUserAction({
+          flowDynamic,
+          user,
+        });
+
+        await delay(2000);
+        await whichFlowAfterWelcome({ gotoFlow, phone, user });
+        return;
+      },
+      //[]
+      //[fullNameStepFlow, emailStepFlow]
+      [menuStepFlow, fullNameStepFlow, emailStepFlow]
+    );
 
 module.exports = {
   welcomeStepFlow,

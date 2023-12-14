@@ -34,7 +34,7 @@ const emailAnswer = async ({
 
     if (!isValid) {
       await updateLastTimeUserInteraction(phone);
-      await flowDynamic(INVALID_EMAIL, { delay: 1000 });
+      await flowDynamic(INVALID_EMAIL, { delay: 2000 });
       await fallBack();
       return;
     }
