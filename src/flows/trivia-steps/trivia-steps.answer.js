@@ -1,7 +1,7 @@
-const { delay } = require('../../helpers');
-const { updateLastTimeUserInteraction } = require('../../services');
-const { isCorrectListItemSelected } = require('../../validators');
-const { logger } = require('../../config');
+const { delay } = require("../../helpers");
+const { updateLastTimeUserInteraction, saveAnswer } = require("../../services");
+const { isCorrectListItemSelected } = require("../../validators");
+const { logger } = require("../../config");
 
 /**
  * Asynchronously handles the trivia answer, updating user interaction time, and performing fallback if the selected option is not valid.
@@ -18,6 +18,8 @@ const triviaAnswer = async ({
   phone,
   listRowsParams,
   fallBack,
+  question,
+  questionNumber,
 }) => {
   try {
     await delay(1000);
@@ -28,6 +30,8 @@ const triviaAnswer = async ({
       await fallBack();
       return;
     }
+
+    await saveAnswer({ question, answer: optionTyped, questionNumber, phone });
     return;
   } catch (error) {
     logger.error(error.message);

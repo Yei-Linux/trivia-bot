@@ -1,11 +1,11 @@
-const { addKeyword } = require('@bot-whatsapp/bot');
+const { addKeyword } = require("@bot-whatsapp/bot");
 
-const { isInactiveForGettingResponse } = require('../../../services');
-const { TRIVIA_CONVERSATION_BOT } = require('../../../constants');
-const { cache } = require('../../../config');
-const { triviaAnswer } = require('../trivia-steps.answer');
-const { triviaAction } = require('../trivia-steps.action');
-const { triviaQuestion3StepFlow } = require('../question3');
+const { isInactiveForGettingResponse } = require("../../../services");
+const { TRIVIA_CONVERSATION_BOT } = require("../../../constants");
+const { cache } = require("../../../config");
+const { triviaAnswer } = require("../trivia-steps.answer");
+const { triviaAction } = require("../trivia-steps.action");
+const { triviaQuestion3StepFlow } = require("../question3");
 
 const { question2Step } = TRIVIA_CONVERSATION_BOT;
 const { keywords, questions } = question2Step;
@@ -34,6 +34,8 @@ const triviaQuestion2StepFlow = addKeyword(keywords)
         phone,
         listRowsParams: triviaCache.rows,
         fallBack,
+        question: triviaCache.question,
+        questionNumber: 2,
       });
       return;
     },
